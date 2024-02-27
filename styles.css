@@ -1,0 +1,153 @@
+/* CSS Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: "Geologica", sans-serif;
+}
+
+:root {
+  --main-background-color: #151515;
+  --primary-text-color: #ffffff;
+  --secondary-text-color: #151515;
+  --add-button-background-color-a: #ffffff;
+  --add-button-background-color-b: transparent;
+  --add-button-outline-color: #ffffff;
+  --add-book-button-hover: #e3e3e3;
+  --add-demo-books-button-hover: #1f1f1f;
+}
+
+body {
+  background-color: var(--main-background-color);
+  color: var(--primary-text-color);
+}
+
+/* Grid Sections */
+.general-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 3fr;
+  height: 100vh; /* Keeps it full screen */
+}
+
+.header-section {
+  grid-row: 1 / 2;
+}
+
+.button-section {
+  grid-row: 2 / 3;
+}
+
+.main-section {
+  grid-row: 3 / -1;
+  display: grid;
+}
+
+/* Header Section */
+.header-section {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0 0;
+}
+
+hr {
+  margin-top: 30px;
+}
+
+.header-title {
+  align-self: center;
+}
+
+/* Button Section */
+.button-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.add-book-button,
+.add-demo-books-button {
+  font-family: "Geologica", sans-serif;
+  margin: 0 10px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 180px; /* Come back to this eventually */
+}
+
+.buttons {
+  display: flex;
+}
+
+.material-symbols-rounded {
+  padding-right: 5px;
+}
+
+.add-book-button {
+  background-color: var(--add-button-background-color-a);
+  border: 1px solid var(--add-button-outline-color);
+  color: var(--secondary-text-color);
+}
+
+.add-demo-books-button {
+  background-color: var(--add-button-background-color-b);
+  border: 1px solid var(--add-button-outline-color);
+  color: var(--primary-text-color);
+}
+
+.add-book-button:hover,
+.add-demo-books-button:hover {
+  cursor: pointer;
+}
+
+.add-book-button:hover {
+  background-color: var(--add-book-button-hover);
+}
+
+.add-demo-books-button:hover {
+  background-color: var(--add-demo-books-button-hover);
+}
+
+/* Main Section */
+.main-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-title {
+  margin: 10px 0 30px;
+}
+
+.book-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 32px;
+  max-width: 100%;
+  /* margin: 10px auto; */
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  color: var(--secondary-text-color);
+  padding: 22px;
+  border-radius: 10px;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  transition: border 0.3s;
+  border: var(--book-card-border);
+  background-color: aliceblue;
+  /* max-width: 216px; */
+}
