@@ -21,13 +21,53 @@
   </head>
   <body>
     <div class="general-container">
+      <!-- Dialog Modal -->
+      <dialog class="book-dialog">
+        <form class="book-form" action="">
+          <legend class="form-title">Add a new book</legend>
+          <div class="form-row">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" />
+          </div>
+          <div class="form-row">
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author" />
+          </div>
+          <div class="form-row">
+            <label for="pages">Number of Pages</label>
+            <input type="number" id="pages" name="pages" />
+          </div>
+          <div class="form-row">
+            <input type="checkbox" id="read" name="read" value="read" />
+            <label for="read">I have read this book</label>
+          </div>
+          <div class="form-row">
+            <button class="confirm-add-button" type="submit" value="default">
+              Confirm
+            </button>
+            <button
+              class="cancel-add-button"
+              value="cancel"
+              formmethod="dialog"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </dialog>
+
+      <!-- REMEMBER THIS EXISTS -->
+      <div class="backdrop"></div>
+      <!-- REMEMBER THIS EXISTS -->
+
       <div class="header-section">
         <h1 class="header-title">Library</h1>
         <hr />
       </div>
+      <output></output>
 
       <div class="button-section">
-        <div class="buttons">
+        <div class="add-buttons">
           <button class="add-book-button">
             <span class="material-symbols-rounded">add</span>Add Book
           </button>

@@ -30,7 +30,7 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 3fr;
-  height: 100vh; /* Keeps it full screen */
+  height: 100vh;
 }
 
 .header-section {
@@ -69,49 +69,62 @@ hr {
   margin: 30px 0;
 }
 
+.add-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .add-book-button,
-.add-demo-books-button {
+.add-demo-books-button,
+.confirm-add-button,
+.cancel-add-button {
   font-family: "Geologica", sans-serif;
-  margin: 0 10px;
   padding: 10px;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 180px; /* Come back to this eventually */
 }
 
-.buttons {
-  display: flex;
+.add-book-button,
+.add-demo-books-button {
+  width: 180px;
 }
 
 .material-symbols-rounded {
   padding-right: 5px;
 }
 
-.add-book-button {
+.add-book-button,
+.confirm-add-button {
   background-color: var(--add-button-background-color-a);
   border: 1px solid var(--add-button-outline-color);
   color: var(--secondary-text-color);
 }
 
-.add-demo-books-button {
+.add-demo-books-button,
+.cancel-add-button {
   background-color: var(--add-button-background-color-b);
   border: 1px solid var(--add-button-outline-color);
   color: var(--primary-text-color);
 }
 
 .add-book-button:hover,
-.add-demo-books-button:hover {
+.add-demo-books-button:hover,
+.confirm-add-button,
+.cancel-add-button {
   cursor: pointer;
 }
 
-.add-book-button:hover {
+.add-book-button:hover,
+.confirm-add-button:hover {
   background-color: var(--add-book-button-hover);
 }
 
-.add-demo-books-button:hover {
+.add-demo-books-button:hover,
+.cancel-add-button:hover {
   background-color: var(--add-demo-books-button-hover);
 }
 
@@ -134,7 +147,6 @@ hr {
   grid-auto-rows: 1fr;
   gap: 32px;
   max-width: 100%;
-  /* margin: 10px auto; */
 }
 
 .book-card {
@@ -150,4 +162,96 @@ hr {
   border: var(--book-card-border);
   background-color: aliceblue;
   /* max-width: 216px; */
+}
+
+/* Dialog */
+dialog {
+  background-color: var(--main-background-color);
+  color: var(--primary-text-color);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 450px;
+  border-radius: 20px;
+  border: none;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.form-title {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  font-size: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+}
+
+form .form-row:nth-child(5) {
+  flex-direction: row;
+}
+
+label[for="title"],
+label[for="author"],
+label[for="pages"] {
+  margin-bottom: 5px;
+}
+
+label[for="read"] {
+  padding-left: 10px;
+}
+
+form .form-row:nth-child(6) {
+  flex-direction: row;
+  gap: 10px;
+}
+
+form input[type="text"],
+form input[type="number"] {
+  height: 40px;
+  border-radius: 10px;
+  border: none;
+  background-color: #242424;
+  color: var(--primary-text-color);
+  padding-left: 10px;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus {
+  outline: none;
+}
+
+.confirm-add-button {
+  width: 60%;
+}
+
+.cancel-add-button {
+  width: 40%;
+}
+
+@media screen and (min-width: 420px) {
+  .add-buttons {
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .general-container {
+    height: 0;
+  }
 }
