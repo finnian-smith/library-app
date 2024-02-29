@@ -8,29 +8,61 @@ function Book(title, author, pages, read) {
 }
 
 // Demo Books
-const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, true);
-const book2 = new Book("Who Moved My Cheese?", "Dr Spencer Johnson", 94, false);
-const book3 = new Book("Meditations", "Marcus Aurelius", 254, false);
-const book4 = new Book("Shoe Dog", "Phil Knight", 399, true);
-
-function addBookToLibrary(book) {
-  myLibrary.push(book);
-}
-
-// Add demo books to library
-addBookToLibrary(book1);
-addBookToLibrary(book2);
-addBookToLibrary(book3);
-addBookToLibrary(book4);
+const demoBooksData = [
+  { title: "The Hobbit", author: "J.R.R. Tolkien", pages: 295, read: true },
+  {
+    title: "Who Moved My Cheese?",
+    author: "Dr Spencer Johnson",
+    pages: 94,
+    read: false,
+  },
+  { title: "Meditations", author: "Marcus Aurelius", pages: 254, read: false },
+  { title: "Shoe Dog", author: "Phil Knight", pages: 399, read: true },
+];
 
 // Element variables
 const bookCards = document.querySelector(".book-cards");
 const addButton = document.querySelector(".add-book-button");
+const addDemoButton = document.querySelector(".add-demo-books-button");
 const bookDialog = document.querySelector(".book-dialog");
 const bookForm = document.querySelector(".book-form");
 const confirmAddButton = bookDialog.querySelector(".confirm-add-button");
 const backdrop = document.querySelector(".backdrop");
 
+// Displays message if library is empty
+if (myLibrary.length === 0) {
+  const emptyMessage = document.createElement("div");
+  emptyMessage.innerHTML = `
+  <div class="empty-message">
+  <p class="empty-message-header">There are currently no books in your library!</p>
+  <p class="empty-message-text">Click "Add Book" to add a book of your choice</p>
+  <p class="empty-message-text">Click "Add Demo Books" to add some demo books</p>
+  </div>
+`;
+
+  bookCards.appendChild(emptyMessage);
+}
+
+// Adds book to library
+function addBookToLibrary(book) {
+  myLibrary.push(book);
+}
+
+// Adds demo books to library
+addDemoButton.addEventListener("click", () => {
+  demoBooksData.forEach((bookData) => {
+    const book = new Book(
+      bookData.title,
+      bookData.author,
+      bookData.pages,
+      bookData.read
+    );
+    addBookToLibrary(book);
+    displayBooks(myLibrary);
+  });
+});
+
+// Displays books in library
 function displayBooks(library) {
   bookCards.innerHTML = "";
 
@@ -57,8 +89,6 @@ function displayBooks(library) {
     bookCards.appendChild(bookCard);
   });
 }
-
-displayBooks(myLibrary);
 
 // Generates random HSL value
 function hslRandomValue() {
