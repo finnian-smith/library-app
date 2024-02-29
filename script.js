@@ -7,7 +7,7 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-// Template Books
+// Demo Books
 const book1 = new Book("The Hobbit", "J.R.R. Tolkien", 295, true);
 const book2 = new Book("Who Moved My Cheese?", "Dr Spencer Johnson", 94, false);
 const book3 = new Book("Meditations", "Marcus Aurelius", 254, false);
@@ -17,48 +17,70 @@ function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-// Addings templates books to library
+// Add demo books to library
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
 addBookToLibrary(book4);
 
-function displayBook(book) {
-  const bookCards = document.querySelector(".book-cards");
-
-  // make p -> div then create elements like h3, p, image etc. and append to div
-  const bookCard = document.createElement("p");
-  bookCard.innerText = book.title;
-  bookCard.classList.add("book-card");
-  bookCards.appendChild(bookCard);
-}
-
-myLibrary.forEach((book) => {
-  displayBook(book);
-});
-
-// MODAL
+// Element variables
+const bookCards = document.querySelector(".book-cards");
 const addButton = document.querySelector(".add-book-button");
 const bookDialog = document.querySelector(".book-dialog");
 const bookForm = document.querySelector(".book-form");
 const confirmAddButton = bookDialog.querySelector(".confirm-add-button");
 const backdrop = document.querySelector(".backdrop");
 
-// "Add Book" button opens the modal and applies backdrop
+function displayBooks(library) {
+  bookCards.innerHTML = "";
+
+  library.forEach((book, index) => {
+    const bookCard = document.createElement("div");
+    bookCard.setAttribute("data-book-index", index);
+    bookCard.classList.add("book-card");
+    bookCard.style.backgroundColor = hslRandomValue();
+
+    bookCard.innerHTML = `
+        <span class="material-symbols-rounded delete-icon">delete</span>
+        <p class="book-card-title">${book.title}</p>
+        <p class="book-card-author">by ${book.author}</p>
+        <hr class="book-card-horizontal-rule" />
+        <p class="book-card-pages">${book.pages} pages</p>
+        <div class="read-checkbox">
+        <input type="checkbox" class="read" name="read" value="read" ${
+          book.read ? "checked" : ""
+        }/>
+        <label for="read" class="book-card-read">Read</label>
+        </div>
+ `;
+
+    bookCards.appendChild(bookCard);
+  });
+}
+
+displayBooks(myLibrary);
+
+// Generates random HSL value
+function hslRandomValue() {
+  return `hsl( ${360 * Math.random()}, ${6 + 12 * Math.random()}%, ${
+    71 + 10 * Math.random()
+  }%)`;
+}
+
+// Add Book button
 addButton.addEventListener("click", () => {
   bookDialog.showModal();
   backdrop.style.display = "block";
 });
 
-// HANDLE SUBMIT - this can maybe be cleaned up?
+// Confirm button
 function captureBookData() {
-  const bookData = {
+  return {
     title: document.querySelector("#title").value,
     author: document.querySelector("#author").value,
     pages: document.querySelector("#pages").value,
     read: document.querySelector("#read").checked,
   };
-  return bookData;
 }
 
 function handleBookAddition(event) {
@@ -71,8 +93,11 @@ function handleBookAddition(event) {
     bookData.read
   );
   addBookToLibrary(newBook);
-  console.log(newBook);
-  displayBook(newBook);
+  displayBooks(myLibrary);
+  closeDialog();
+}
+
+function closeDialog() {
   bookDialog.close();
   bookForm.reset();
   backdrop.style.display = "none";
@@ -80,8 +105,20 @@ function handleBookAddition(event) {
 
 confirmAddButton.addEventListener("click", handleBookAddition);
 
-// "Cancel" button closes the dialog
+// Cancel button
 bookDialog.addEventListener("close", (e) => {
-  backdrop.style.display = "none";
-  // maybe reset form here too?
+  closeDialog();
+});
+
+// Delete button
+bookCards.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete-icon")) {
+    const bookIndex = e.target
+      .closest(".book-card")
+      .getAttribute("data-book-index");
+
+    myLibrary.splice(bookIndex, 1);
+    bookCards.innerHTML = "";
+    displayBooks(myLibrary);
+  }
 });
