@@ -9,15 +9,15 @@ function Book(title, author, pages, read) {
 
 // Demo Books
 const demoBooksData = [
-  { title: "The Hobbit", author: "J.R.R. Tolkien", pages: 295, read: true },
+  { title: "Shoe Dog", author: "Phil Knight", pages: 399, read: true },
   {
-    title: "Who Moved My Cheese?",
-    author: "Dr Spencer Johnson",
-    pages: 94,
+    title: "The Lord of the Rings",
+    author: "J.R.R. Tolkien",
+    pages: 1248,
     read: false,
   },
+  { title: "Steve Jobs", author: "Walter Isaacson", pages: 656, read: false },
   { title: "Meditations", author: "Marcus Aurelius", pages: 254, read: false },
-  { title: "Shoe Dog", author: "Phil Knight", pages: 399, read: true },
 ];
 
 // Element variables
@@ -88,6 +88,8 @@ function displayBooks(library) {
 
     bookCards.appendChild(bookCard);
   });
+
+  toggleRead();
 }
 
 // Generates random HSL value
@@ -152,3 +154,18 @@ bookCards.addEventListener("click", (e) => {
     displayBooks(myLibrary);
   }
 });
+
+// Changes values of read checkbox on book cards
+function toggleRead() {
+  const cardCheckboxes = bookCards.querySelectorAll(".read");
+
+  cardCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("click", (e) => {
+      const checkboxParentCard = e.target.parentNode.parentNode;
+      const bookIndex = checkboxParentCard.getAttribute("data-book-index");
+      const bookItem = myLibrary[bookIndex];
+
+      bookItem.read = !bookItem.read;
+    });
+  });
+}
